@@ -7,27 +7,13 @@
 
 <body style="height: 100%; margin: 0">
     <div id="container" style="height: 100%"></div>
-    <!-- <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script> -->
-    <!-- <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script> -->
-    <!-- <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script> -->
-    <!-- <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script> -->
-    <!-- <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script> -->
-    <!-- <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script> -->
-    <!-- <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=xfhhaTThl11qYVrqLZii6w8qE5ggnhrY&__ec_v__=20190126"></script> -->
-    <!-- <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script> -->
-    <!-- <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script> -->
     <script src="js/echarts.js"></script>
     <script src="js/jquery.js"></script>
-    <!-- <script src="js/china.js"></script> -->
-
-
     <script type="text/javascript">
         $.get('js/map/china.json', function (chinaJson) {
             echarts.registerMap('china', chinaJson);
-
             var dom = document.getElementById("container");
             var myChart = echarts.init(dom);
-
             option = null;
             var geoCoordMap = {
                 '上海': [121.4648, 31.2891],
@@ -143,57 +129,58 @@
                 '长治': [112.8625, 36.4746],
                 '阳泉': [113.4778, 38.0951],
                 '青岛': [120.4651, 36.3373],
-                '韶关': [113.7964, 24.7028]
+                '韶关': [113.7964, 24.7028],
+                '雷波县': [103.571584, 28.262946],
+                '冕宁县': [102.170046, 28.550844],
+                '凉山州': [102.258758, 27.885786],
+                '德昌县': [102.178845, 27.403827]
             };
 
-            var BJData = [
-                [{ name: '北京' }, { name: '上海', value: 95 }],
-                [{ name: '北京' }, { name: '广州', value: 90 }],
-                [{ name: '北京' }, { name: '大连', value: 80 }],
-                [{ name: '北京' }, { name: '南宁', value: 70 }],
-                [{ name: '北京' }, { name: '南昌', value: 60 }],
-                [{ name: '北京' }, { name: '拉萨', value: 50 }],
-                [{ name: '北京' }, { name: '长春', value: 40 }],
-                [{ name: '北京' }, { name: '包头', value: 30 }],
-                [{ name: '北京' }, { name: '重庆', value: 20 }],
-                [{ name: '北京' }, { name: '常州', value: 10 }]
+            var LSData = [
+                [{ name: '凉山州' }, { name: '上海', value: 95 }],
+                [{ name: '凉山州' }, { name: '广州', value: 90 }],
+                [{ name: '凉山州' }, { name: '大连', value: 80 }],
+                [{ name: '凉山州' }, { name: '南宁', value: 70 }],
+                [{ name: '凉山州' }, { name: '南昌', value: 60 }],
+                [{ name: '凉山州' }, { name: '拉萨', value: 50 }],
+                [{ name: '凉山州' }, { name: '长春', value: 40 }],
+                [{ name: '凉山州' }, { name: '包头', value: 30 }],
+                [{ name: '凉山州' }, { name: '兰州', value: 20 }],
+                [{ name: '凉山州' }, { name: '常州', value: 10 }]
             ];
 
-            var SHData = [
-                [{ name: '上海' }, { name: '包头', value: 95 }],
-                [{ name: '上海' }, { name: '昆明', value: 90 }],
-                [{ name: '上海' }, { name: '广州', value: 80 }],
-                [{ name: '上海' }, { name: '郑州', value: 70 }],
-                [{ name: '上海' }, { name: '长春', value: 60 }],
-                [{ name: '上海' }, { name: '重庆', value: 50 }],
-                [{ name: '上海' }, { name: '长沙', value: 40 }],
-                [{ name: '上海' }, { name: '北京', value: 30 }],
-                [{ name: '上海' }, { name: '丹东', value: 20 }],
-                [{ name: '上海' }, { name: '大连', value: 10 }]
+            var MNData = [
+                [{ name: '冕宁县' }, { name: '包头', value: 95 }],
+                [{ name: '冕宁县' }, { name: '昆明', value: 90 }],
+                [{ name: '冕宁县' }, { name: '广州', value: 80 }],
+                [{ name: '冕宁县' }, { name: '郑州', value: 70 }],
+                [{ name: '冕宁县' }, { name: '长春', value: 60 }],
+                [{ name: '冕宁县' }, { name: '重庆', value: 50 }],
+                [{ name: '冕宁县' }, { name: '长沙', value: 40 }],
+                [{ name: '冕宁县' }, { name: '北京', value: 30 }],
+                [{ name: '冕宁县' }, { name: '丹东', value: 20 }],
+                [{ name: '冕宁县' }, { name: '大连', value: 10 }]
             ];
 
-            var GZData = [
-                [{ name: '广州' }, { name: '福州', value: 95 }],
-                [{ name: '广州' }, { name: '太原', value: 90 }],
-                [{ name: '广州' }, { name: '长春', value: 80 }],
-                [{ name: '广州' }, { name: '重庆', value: 70 }],
-                [{ name: '广州' }, { name: '西安', value: 60 }],
-                [{ name: '广州' }, { name: '成都', value: 50 }],
-                [{ name: '广州' }, { name: '常州', value: 40 }],
-                [{ name: '广州' }, { name: '北京', value: 30 }],
-                [{ name: '广州' }, { name: '北海', value: 20 }],
-                [{ name: '广州' }, { name: '海口', value: 10 }]
+            var DCData = [
+                [{ name: '德昌县' }, { name: '重庆', value: 70 }],
+                [{ name: '德昌县' }, { name: '西安', value: 60 }],
+                [{ name: '德昌县' }, { name: '成都', value: 50 }],
+                [{ name: '德昌县' }, { name: '常州', value: 40 }],
+                [{ name: '德昌县' }, { name: '北京', value: 30 }],
+                [{ name: '德昌县' }, { name: '北海', value: 20 }],
+                [{ name: '德昌县' }, { name: '海口', value: 10 }]
             ];
 
-            var LZData = [
-                [{ name: '兰州' }, { name: '福州', value: 95 }],
-                [{ name: '兰州' }, { name: '太原', value: 90 }],
-                [{ name: '兰州' }, { name: '长春', value: 80 }],
-                [{ name: '兰州' }, { name: '重庆', value: 70 }],
-                [{ name: '兰州' }, { name: '西安', value: 60 }],
-                [{ name: '兰州' }, { name: '成都', value: 50 }],
-                [{ name: '兰州' }, { name: '常州', value: 40 }],
-                [{ name: '兰州' }, { name: '北京', value: 30 }],
+            var LBData = [
+                [{ name: '雷波县' }, { name: '福州', value: 95 }],
+                [{ name: '雷波县' }, { name: '太原', value: 90 }],
+                [{ name: '雷波县' }, { name: '长春', value: 80 }],
+                [{ name: '雷波县' }, { name: '重庆', value: 70 }],
+                [{ name: '雷波县' }, { name: '西安', value: 60 }],
+                [{ name: '雷波县' }, { name: '成都', value: 50 }],
+                [{ name: '雷波县' }, { name: '兰州', value: 100 }],
+                [{ name: '雷波县' }, { name: '北京', value: 30 }]
             ];
             //'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow'
             //var planePath = 'path://M1705.06,1318.313v-89.254l-319.9-221.799l0.073-208.063c0.521-84.662-26.629-121.796-63.961-121.491c-37.332-0.305-64.482,36.829-63.961,121.491l0.073,208.063l-319.9,221.799v89.254l330.343-157.288l12.238,241.308l-134.449,92.931l0.531,42.034l175.125-42.917l175.125,42.917l0.531-42.034l-134.449-92.931l12.238-241.308L1705.06,1318.313z';
@@ -208,6 +195,7 @@
                         res.push({
                             fromName: dataItem[0].name,
                             toName: dataItem[1].name,
+                            toValue: dataItem[1].value,
                             coords: [fromCoord, toCoord]
                         });
                     }
@@ -217,7 +205,7 @@
             //debugger;
             var color = ['#a6c84c', '#ffa022', '#46bee9'];
             var lanzhou = {
-                name: '点',
+                name: '直播点',
                 type: 'effectScatter',
                 coordinateSystem: 'geo',
                 zlevel: 3,
@@ -226,15 +214,15 @@
                     //波纹的绘制方式，可选 'stroke' 和 'fill'
                 },
                 showEffectOn: "render",//显示涟漪
-                label: {
-                    normal: {
-                        show: true,
-                        position: 'left',
-                        formatter: '{b}'
-                    }
-                },
+                // label: {
+                //     normal: {
+                //         show: true,
+                //         position: 'left',
+                //         formatter: '{b}'
+                //     }
+                // },
                 symbolSize: function (val) {
-                    return val[2] / 180;
+                    return val[2] / 200;
                 },
                 itemStyle: {
                     normal: {
@@ -243,40 +231,52 @@
                 },
                 data: [
                     {
-                        name: "lanzhou",
-                        value: [103.5901, 36.3043, 1092],
+                        name: "雷波县",
+                        value: [103.571584, 28.262946, 1092],
                         tooltip: {
                             formatter: function (item, ticket, callback) {
-                                let res = "中心资源校：" + item.name + "<br />地区教学点：";
-                                for (let i = 0, l = LZData.length; i < l; i++) {
-                                    res += '<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + LZData[i][1].name;
+                                let res = "直播点：" + item.name + "<br />各地区观看数：";
+                                for (let i = 0, l = LBData.length; i < l; i++) {
+                                    res += '<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + LBData[i][1].name + ":" + LBData[i][1].value;
                                 }
                                 return res
                             },
                         }
                     },
                     {
-                        name: "北京",
-                        value: [116.46, 39.92, 3333],
-
+                        name: "德昌县",
+                        value: [102.178845, 27.403827, 1333],
                         tooltip: {
                             formatter: function (item, ticket, callback) {
-                                let res = "中心资源校：" + item.name + "<br />地区教学点：";
-                                for (let i = 0, l = BJData.length; i < l; i++) {
-                                    res += '<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + BJData[i][1].name;
+                                let res = "直播点：" + item.name + "<br />各地区观看数：";
+                                for (let i = 0, l = DCData.length; i < l; i++) {
+                                    res += '<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + DCData[i][1].name + ":" + DCData[i][1].value;
                                 }
                                 return res
                             },
                         }
                     },
                     {
-                        name: "拉萨\n111",
-                        value: [91.1865, 30.1465, 3333],
+                        name: "冕宁县",
+                        value: [102.170046, 28.550844, 1333],
                         tooltip: {
                             formatter: function (item, ticket, callback) {
-                                let res = "中心资源校：" + item.name + "<br />地区教学点：";
-                                for (let i = 0, l = BJData.length; i < l; i++) {
-                                    res += '<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + BJData[i][1].name;
+                                let res = "直播点：" + item.name + "<br />各地区观看数：";
+                                for (let i = 0, l = MNData.length; i < l; i++) {
+                                    res += '<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + MNData[i][1].name + ":" + MNData[i][1].value;
+                                }
+                                return res
+                            },
+                        }
+                    },
+                    {
+                        name: "凉山州",
+                        value: [102.258758, 27.885786, 1200],
+                        tooltip: {
+                            formatter: function (item, ticket, callback) {
+                                let res = "直播点：" + item.name + "<br />各地区观看数：";
+                                for (let i = 0, l = LSData.length; i < l; i++) {
+                                    res += '<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + LSData[i][1].name + ":" + MNData[i][1].value;
                                 }
                                 return res
                             },
@@ -285,9 +285,9 @@
                 ]
             };
             var series = [lanzhou];
-            [['北京', BJData], ['上海', SHData], ['广州', GZData], ['兰州', LZData]].forEach(function (item, i) {
+            [['雷波县', LBData], ['冕宁县', MNData], ['凉山州', LSData], ['德昌县', DCData]].forEach(function (item, i) {
                 series.push({
-                    name: item[0] + ' Top10',
+                    name: item[0],
                     type: 'lines',
                     zlevel: 1,
                     effect: {
@@ -307,23 +307,23 @@
                     data: convertData(item[1])
                 },
                     {
-                        name: item[0] + ' Top10',
+                        name: item[0],
                         type: 'lines',
                         zlevel: 2,
                         tooltip: {
                             formatter: function (sdasd, ticket, callback) {
-                                let res = "" + sdasd.data.fromName + "->>>" + sdasd.data.toName;
+                                let res = "" + sdasd.data.fromName + "->>>" + sdasd.data.toName+sdasd.data.toValue;
                                 return res
                             },
                         },
                         symbol: ['none', 'arrow'],
-                        symbolSize: 10,
+                        symbolSize: 3,
                         effect: {
                             show: true,
                             period: 6,
                             trailLength: 0,
                             symbol: planePath,
-                            symbolSize: 8
+                            symbolSize: 3
                         },
                         lineStyle: {
                             normal: {
@@ -338,12 +338,12 @@
 
                     //地图上的点
                     {
-                        name: item[0] + ' Top10',
+                        name: item[0],
                         type: 'effectScatter',
                         coordinateSystem: 'geo',
                         zlevel: 2,
                         rippleEffect: {
-                            brushType: 'stroke'
+                            brushType: 'fill'
                             //波纹的绘制方式，可选 'stroke' 和 'fill'
                         },
                         showEffectOn: "emphasis",//高亮时候显示涟漪
@@ -363,7 +363,12 @@
                             }
                         },
                         tooltip: {
-                            formatter: '地区教学点: <br />{b0} '
+                            //formatter: '{b0}观看数: <br />{c0} '
+                            formatter: function (sdasd, ticket, callback) {
+                                var numstr = sdasd.data.value[2];
+                                let res = sdasd.data.name + "观看数:" + numstr;
+                                return res
+                            }
                         },
                         data: item[1].map(function (dataItem) {
                             return {
@@ -377,7 +382,7 @@
             option = {
                 backgroundColor: '#404a59',
                 title: {
-                    text: '教育资源流向',
+                    text: '直播投送情况统计',
                     subtext: '数据纯属虚构',
                     left: 'center',
                     textStyle: {
@@ -386,13 +391,25 @@
                 },
                 tooltip: {
                     trigger: 'item',
+                    //formatter: '中心资源校：{b0}<br />地区教学点：{b1}{c}{d}'
+
                 },
+                //             visualMap: {
+                //     type: 'continuous',
+                //     min: 0,
+                //     max: 1000000,
+                //     text:['High','Low'],
+                //     realtime: false,
+                //     calculable : true,
+                //     color: ['orangered','yellow','lightskyblue']
+                // },
+
 
                 legend: {
                     orient: 'vertical',
                     top: 'bottom',
                     left: 'right',
-                    data: ['北京 Top10', '上海 Top10', '广州 Top10', '兰州 Top10'],
+                    data: ['雷波县', '冕宁县', '凉山州', '德昌县'],
                     textStyle: {
                         color: '#fff'
                     },
@@ -414,23 +431,7 @@
                         emphasis: {
                             areaColor: '#2a333d'
                         }
-                    },
-                    data: [
-                        { name: '甘肃', value: 40 },
-                        { name: '青海', value: 30 },
-                        { name: '宁夏', value: 20 },
-                        { name: '西藏', value: 10 }
-                    ],
-
-                    // regions: [{
-                    //     name: '新疆',
-                    //     itemStyle: {
-                    //         name: "xx",
-                    //         areaColor: 'red',
-                    //         color: 'red'
-                    //     }
-                    // }]
-
+                    }
                 },
 
                 visualMap: {
@@ -447,6 +448,13 @@
             };;
             console.log(series);
             if (option && typeof option === "object") {
+                var labelselect = {
+                    "雷波县": false,
+                    "凉山州": true,
+                    "冕宁县": false,
+                    "德昌县": false
+                };
+                option.legend.selected = labelselect;
                 myChart.setOption(option, true);
             }
 
@@ -455,69 +463,62 @@
                 console.log(params.name);
                 debugger
 
-                var labelselect;
-
                 if (params.componentSubType === 'effectScatter') {
                     // 点击到了 effectScatter 上
+                    var labelselect = {
+                        "雷波县": true,
+                        "凉山州": false,
+                        "冕宁县": false,
+                        "德昌县": false
+                    };
 
                     //var crrselect=option.legend.selected;
                     //console.log(crrselect); 
-                    switch (params.name + " Top10") {
-                        case "上海 Top10":
+                    switch (params.name) {
+                        case "雷波县":
                             labelselect = {
-                                "上海 Top10": true,
-                                "兰州 Top10": false,
-                                "北京 Top10": false,
-                                "广州 Top10": false
+                                "雷波县": true,
+                                "凉山州": false,
+                                "冕宁县": false,
+                                "德昌县": false
                             };
                             break;
-                        case "lanzhou Top10":
+                        case "凉山州":
                             labelselect = {
-                                "上海 Top10": false,
-                                "兰州 Top10": true,
-                                "北京 Top10": false,
-                                "广州 Top10": false
+                                "雷波县": false,
+                                "凉山州": true,
+                                "冕宁县": false,
+                                "德昌县": false
                             };
                             break;
-                        case "北京 Top10":
+                        case "冕宁县":
                             labelselect = {
-                                "上海 Top10": false,
-                                "兰州 Top10": false,
-                                "北京 Top10": true,
-                                "广州 Top10": false
+                                "雷波县": false,
+                                "凉山州": false,
+                                "冕宁县": true,
+                                "德昌县": false
                             };
                             break;
-                        case "广州 Top10":
+                        case "德昌县":
                             labelselect = {
-                                "上海 Top10": false,
-                                "兰州 Top10": false,
-                                "北京 Top10": false,
-                                "广州 Top10": true
+                                "雷波县": false,
+                                "凉山州": false,
+                                "冕宁县": false,
+                                "德昌县": true
                             };
                             break;
                         default:
                             labelselect = {
-                                "上海 Top10": false,
-                                "兰州 Top10": false,
-                                "北京 Top10": false,
-                                "广州 Top10": false
+                                "雷波县": false,
+                                "凉山州": false,
+                                "冕宁县": false,
+                                "德昌县": false
                             };
                     }
+                    option.legend.selected = labelselect;
+                    myChart.setOption(option, true);
                 }
-                option.legend.selected = labelselect;
-                myChart.setOption(option, true);
             });
-
-            // 图例开关的行为只会触发 legendselectchanged 事件
-            myChart.on('legendselectchanged', function (params) {
-                // 获取点击图例的选中状态
-                var isSelected = params.selected[params.name];
-                // 在控制台中打印
-                console.log((isSelected ? '选中了' : '取消选中了') + '图例' + params.name);
-                // 打印所有图例的状态
-                console.log(params.selected);
-            });
-
         });
     </script>
 </body>
