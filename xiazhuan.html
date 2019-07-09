@@ -26,6 +26,12 @@
             var myChart = echarts.init(dom);
             option = null;
 
+            var mapProvinces = {
+                "甘肃": "gansu",
+                "兰州市": "lanzhou",
+                "陇南市": "longnan",
+                "西和县": "xihe"
+            };
 
             var geoCoordMap = {
                 '上海': [121.4648, 31.2891],
@@ -298,7 +304,8 @@
             };
             var series = [lanzhou];
             [['雷波县', LBData], ['冕宁县', MNData], ['凉山州', LSData], ['德昌县', DCData]].forEach(function (item, i) {
-                series.push({
+                series.push(
+                    {
                     name: item[0],
                     type: 'lines',
                     zlevel: 1,
@@ -307,7 +314,7 @@
                         period: 6,
                         trailLength: 0.7,
                         //color: '#fff',
-                        color:'#bdc3c7',
+                        color: '#bdc3c7',
                         symbolSize: 3
                     },
                     lineStyle: {
@@ -445,7 +452,7 @@
                     realtime: false,
                     calculable: true,
                     show: false,
-                    color: ['#e74c3c','orangered', '#e67e22', '#27AE60']
+                    color: ['#e74c3c', 'orangered', '#e67e22', '#27AE60']
                 },
                 series: series
             };;
@@ -460,6 +467,12 @@
                 option.legend.selected = labelselect;
                 myChart.setOption(option, true);
             }
+
+            let canvas = document.getElementsByTagName("body")
+            canvas.oncontextmenu = function () { return false; }
+
+
+
 
             myChart.on('click', function (params) {
                 console.log(params);
@@ -520,6 +533,46 @@
                     }
                     option.legend.selected = labelselect;
                     myChart.setOption(option, true);
+                }
+
+
+                //地图下钻
+                if (params.componentType === 'geo') {
+                    //点到了地图上
+                    //let provincesName = mapProvinces[params.name];
+                    var mapName = params.name;
+                    var mapUrl = "js/map/" + mapName + ".json";
+                    $.get(mapUrl, function (resJson) {
+                        window.echarts.registerMap(mapName, resJson);
+                        option = {
+                            backgroundColor: '#404a59',
+                            geo: {
+                                map: mapName,
+                                label: {
+                                    emphasis: {
+                                        show: false
+                                    }
+                                },
+                                roam: false,
+                                itemStyle: {
+                                    normal: {
+                                        areaColor: '#323c48',
+                                        borderColor: '#404a59'
+                                    },
+                                    emphasis: {
+                                        areaColor: '#2a333d'
+                                    }
+                                }
+                            },
+                            series: []
+                        };
+                        //
+                        myChart.clear();
+                        myChart.setOption(option, {
+                            notMerge: true,
+                            lazyUpdate: false
+                        });
+                    });
                 }
             });
         });
