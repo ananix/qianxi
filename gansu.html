@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+
+<head>
+    <meta charset="utf-8">
+</head>
+
+<body style="height: 100%; margin: 0">
+    <div id="container" style="height: 100%" oncontextmenu="doNothing()"></div>
+    <script src="js/echarts.js"></script>
+    <script src="js/jquery.js"></script>
+    <script type="text/javascript">
+
+        function getGeo(mapName) {
+            return {
+                map: mapName,
+                label: {
+                    emphasis: {
+                        show: false
+                    }
+                },
+                roam: false,
+                itemStyle: {
+                    normal: {
+                        areaColor: '#323c48',
+                        borderColor: '#404a59'
+                    },
+                    emphasis: {
+                        areaColor: '#2a333d'
+                    }
+                }
+            }
+        }
+
+        var optionStack = new Stack();
+
+
+        $.get('js/map/甘肃.json', function (chinaJson) {
+            echarts.registerMap('甘肃', chinaJson);
+            var dom = document.getElementById("container");
+            var theme = {
+                backgroundColor: '#1b1b1b',
+                color: [
+                    '#C1232B', '#B5C334', '#FCCE10', '#E87C25', '#27727B',
+                    '#FE8463', '#9BCA63', '#FAD860', '#F3A43B', '#60C0DD',
+                    '#D7504B', '#C6E579', '#F4E001', '#F0805A', '#26C0C0'
+                ]
+            };
+            var myChart = echarts.init(dom);
+            option = null;
+
+            var gansuMap = {
+                "舟曲县": [104.370271, 33.782964]
+                , "山丹县": [101.088442, 38.784839]
+                , "金塔县": [98.902959, 39.983036]
+                , "玉门市": [97.037206, 40.28682]
+                , "康乐县": [103.709852, 35.371906]
+                , "民乐县": [100.816623, 38.434454]
+                , "七里河区": [103.784326, 36.06673,]
+                , "临泽县": [100.166333, 39.152151]
+                , "高台县": [99.81665, 39.376308]
+                , "肃南裕固族自治县": [99.617086, 38.837269]
+                , "临洮县": [103.862186, 35.376233]
+                , "张家川回族自治县": [106.212416, 34.993237]
+                , "天祝藏族自治县": [103.142034, 36.971678]
+                , "镇原县": [107.195706, 35.677806]
+                , "甘州区": [100.454862, 38.931774]
+                , "临夏县": [102.993873, 35.49236]
+                , "西固区": [103.622331, 36.100369]
+                , "皋兰县": [103.94933, 36.331254]
+                , "秦州区": [105.724477, 34.578645]
+                , "榆中县": [104.114975, 35.84443]
+                , "城关区": [103.841032, 36.049115]
+                , "陇西县": [104.637554, 35.003409]
+                , "渭源县": [104.211742, 35.133023]
+                , "清水县": [106.139878, 34.75287]
+                , "秦安县": [105.6733, 34.862354]
+                , "环县": [107.308754, 36.569322]
+                , "安定区": [104.62577, 35.579764]
+                , "白银区": [104.17425, 36.545649]
+                , "卓尼县": [103.508508, 34.588165]
+                , "合水县": [108.019865, 35.819005]
+                , "泾川县": [107.365218, 35.335283]
+                , "庄浪县": [106.041979, 35.203428]
+                , "文县": [104.682448, 32.942171]
+                , "礼县": [105.181616, 34.189387]
+                , "通渭县": [105.250102, 35.208922]
+                , "宕昌县": [104.394475, 34.042655]
+                , "崇信县": [107.031253, 35.304533]
+                , "西和县": [105.299737, 34.013718]
+                , "庆城县": [107.885664, 36.013504]
+                , "和政县": [103.350357, 35.425971]
+                , "崆峒区": [106.684223, 35.54173]
+                , "靖远县": [104.686972, 36.561424]
+                , "会宁县": [105.054337, 35.692486]
+                , "永登县": [103.262203, 36.734428]
+                , "华亭县": [106.649308, 35.215342]
+                , "凉州区": [102.634492, 37.93025,]
+                , "平川区": [104.819207, 36.72921,]
+                , "灵台县": [107.620587, 35.064009]
+                , "静宁县": [105.733489, 35.525243]
+                , "华池县": [107.986288, 36.457304]
+                , "临潭县": [103.353054, 34.69164,]
+                , "迭部县": [103.221009, 34.055348]
+                , "武都区": [104.929866, 33.388155]
+                , "肃州区": [98.511155, 39.743858]
+                , "肃北蒙古族自治县": [94.87728, 39.51224]
+                , "民勤县": [103.090654, 38.624621]
+                , "景泰县": [104.066394, 37.193519]
+                , "广河县": [103.576188, 35.481688]
+                , "东乡族自治县": [103.389568, 35.66383]
+                , "阿克塞哈萨克族自治县": [94.337642, 39.631642]
+                , "正宁县": [108.361068, 35.490642]
+                , "积石山保安族东乡族撒拉族自治县": [102.877473, 35.712906]
+                , "瓜州县": [95.780591, 40.516525]
+                , "西峰区": [107.638824, 35.733713]
+                , "夏河县": [102.520743, 35.200853]
+                , "永昌县": [101.971957, 38.247354]
+                , "安宁区": [103.724038, 36.10329]
+                , "金川区": [102.187683, 38.513793]
+                , "宁县": [107.921182, 35.50201]
+                , "红古区": [102.861814, 36.344177]
+                , "漳县": [104.466756, 34.848642]
+                , "岷县": [104.039882, 34.439105]
+                , "甘谷县": [105.332347, 34.747327]
+                , "麦积区": [105.897631, 34.563504]
+                , "合作市": [102.91149, 34.985973]
+                , "碌曲县": [102.488495, 34.589591]
+                , "玛曲县": [102.075767, 33.998068]
+                , "武山县": [104.891696, 34.721955]
+                , "古浪县": [102.898047, 37.470571]
+                , "永靖县": [103.319871, 35.938933]
+                , "临夏市": [103.211634, 35.59941]
+                , "敦煌市": [94.664279, 40.141119]
+                , "徽县": [106.085632, 33.767785]
+                , "康县": [105.609534, 33.328266]
+                , "成县": [105.734434, 33.739863]
+                , "两当县": [106.306959, 33.910729]
+                , "陇南市": [104.929379, 33.388598]
+                , "天水市": [105.724998, 34.578529]
+                , "定西市": [104.626294, 35.579578]
+                , "兰州市": [103.823557, 36.058039]
+            }
+
+
+            var LSData = [
+                [{ name: '陇南市' }, { name: '两当县', value: 45 }],
+                [{ name: '陇南市' }, { name: '西和县', value: 50 }],
+                [{ name: '陇南市' }, { name: '礼县', value: 30 }],
+                [{ name: '陇南市' }, { name: '成县', value: 50 }],
+                [{ name: '陇南市' }, { name: '康县', value: 40 }],
+                [{ name: '陇南市' }, { name: '徽县', value: 30 }],
+                [{ name: '陇南市' }, { name: '文县', value: 20 }],
+            ];
+
+            var XHData = [
+                [{ name: '西和县' }, { name: '两当县', value: 50 }],
+                [{ name: '西和县' }, { name: '礼县', value: 30 }],
+                [{ name: '西和县' }, { name: '成县', value: 50 }],
+                [{ name: '西和县' }, { name: '康县', value: 40 }],
+                [{ name: '西和县' }, { name: '徽县', value: 30 }],
+                [{ name: '西和县' }, { name: '文县', value: 20 }],
+            ];
+
+            var MNData = [
+                [{ name: '兰州市' }, { name: '安宁区', value: 50 }],
+                [{ name: '兰州市' }, { name: '城关区', value: 60 }],
+                [{ name: '兰州市' }, { name: '七里河区', value: 60 }],
+                [{ name: '兰州市' }, { name: '西固区', value: 50 }],
+                [{ name: '兰州市' }, { name: '永登县', value: 40 }],
+                [{ name: '兰州市' }, { name: '皋兰县', value: 30 }],
+                [{ name: '兰州市' }, { name: '红古区', value: 10 }],
+                // [{ name: '兰州市' }, { name: '北京', value: 30 }],
+                // [{ name: '兰州市' }, { name: '丹东', value: 20 }],
+                // [{ name: '兰州市' }, { name: '大连', value: 10 }]
+            ];
+
+            var ANData = [
+                [{ name: '安宁区' }, { name: '兰州市', value: 50 }],
+                [{ name: '安宁区' }, { name: '城关区', value: 60 }],
+                [{ name: '安宁区' }, { name: '七里河区', value: 60 }],
+                [{ name: '安宁区' }, { name: '西固区', value: 50 }],
+                [{ name: '安宁区' }, { name: '永登县', value: 40 }],
+                [{ name: '安宁区' }, { name: '皋兰县', value: 30 }],
+                [{ name: '安宁区' }, { name: '红古区', value: 10 }],
+                // [{ name: '兰州市' }, { name: '北京', value: 30 }],
+                // [{ name: '兰州市' }, { name: '丹东', value: 20 }],
+                // [{ name: '兰州市' }, { name: '大连', value: 10 }]
+            ];
+
+            var QLData = [
+                [{ name: '七里河区' }, { name: '陇西县', value: 23 }],
+                [{ name: '七里河区' }, { name: '渭源县', value: 60 }],
+                [{ name: '七里河区' }, { name: '安定区', value: 50 }],
+                [{ name: '七里河区' }, { name: '漳县', value: 40 }],
+                [{ name: '七里河区' }, { name: '岷县', value: 30 }],
+                // [{ name: '定西市' }, { name: '北海', value: 20 }],
+                // [{ name: '定西市' }, { name: '海口', value: 10 }]
+            ];
+
+            var DCData = [
+                [{ name: '定西市' }, { name: '陇西县', value: 23 }],
+                [{ name: '定西市' }, { name: '渭源县', value: 60 }],
+                [{ name: '定西市' }, { name: '安定区', value: 50 }],
+                [{ name: '定西市' }, { name: '漳县', value: 40 }],
+                [{ name: '定西市' }, { name: '岷县', value: 30 }],
+                // [{ name: '定西市' }, { name: '北海', value: 20 }],
+                // [{ name: '定西市' }, { name: '海口', value: 10 }]
+            ];
+
+
+            var LXData = [
+                [{ name: '礼县' }, { name: '陇西县', value: 23 }],
+                [{ name: '礼县' }, { name: '渭源县', value: 60 }],
+                [{ name: '礼县' }, { name: '安定区', value: 50 }],
+                [{ name: '礼县' }, { name: '漳县', value: 40 }],
+                [{ name: '礼县' }, { name: '岷县', value: 30 }],
+                // [{ name: '定西市' }, { name: '北海', value: 20 }],
+                // [{ name: '定西市' }, { name: '海口', value: 10 }]
+            ];
+
+            var LBData = [
+                [{ name: '天水市' }, { name: '张家川回族自治县', value: 51 }],
+                [{ name: '天水市' }, { name: '秦州区', value: 46 }],
+                [{ name: '天水市' }, { name: '清水县', value: 65 }],
+                [{ name: '天水市' }, { name: '秦安县', value: 40 }],
+                [{ name: '天水市' }, { name: '甘谷县', value: 60 }],
+                [{ name: '天水市' }, { name: '麦积区', value: 50 }],
+                [{ name: '天水市' }, { name: '武山县', value: 10 }]
+            ];
+
+            var QZData = [
+                [{ name: '秦州区' }, { name: '张家川回族自治县', value: 51 }],
+                [{ name: '秦州区' }, { name: '清水县', value: 65 }],
+                [{ name: '秦州区' }, { name: '秦安县', value: 40 }],
+                [{ name: '秦州区' }, { name: '甘谷县', value: 60 }],
+                [{ name: '秦州区' }, { name: '麦积区', value: 50 }],
+                [{ name: '秦州区' }, { name: '武山县', value: 10 }]
+            ];
+
+            var GGData = [
+                [{ name: '安宁区' }, { name: '张家川回族自治县', value: 51 }],
+                [{ name: '安宁区' }, { name: '秦州区', value: 46 }],
+                [{ name: '安宁区' }, { name: '清水县', value: 65 }],
+                [{ name: '安宁区' }, { name: '秦安县', value: 40 }],
+                [{ name: '安宁区' }, { name: '甘谷县', value: 60 }],
+                [{ name: '安宁区' }, { name: '麦积区', value: 50 }],
+                [{ name: '安宁区' }, { name: '武山县', value: 10 }]
+            ];
+            //'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow'
+            //var planePath = 'path://M1705.06,1318.313v-89.254l-319.9-221.799l0.073-208.063c0.521-84.662-26.629-121.796-63.961-121.491c-37.332-0.305-64.482,36.829-63.961,121.491l0.073,208.063l-319.9,221.799v89.254l330.343-157.288l12.238,241.308l-134.449,92.931l0.531,42.034l175.125-42.917l175.125,42.917l0.531-42.034l-134.449-92.931l12.238-241.308L1705.06,1318.313z';
+            var planePath = 'arrow'
+            var convertData = function (data) {
+                var res = [];
+                for (var i = 0; i < data.length; i++) {
+                    var dataItem = data[i];
+                    var fromCoord = gansuMap[dataItem[0].name];
+                    var toCoord = gansuMap[dataItem[1].name];
+                    if (fromCoord && toCoord) {
+                        res.push({
+                            fromName: dataItem[0].name,
+                            toName: dataItem[1].name,
+                            toValue: dataItem[1].value,
+                            coords: [fromCoord, toCoord]
+                        });
+                    }
+                }
+                return res;
+            };
+            //debugger;
+            var color = ['#a6c84c', '#ffa022', '#46bee9'];
+            var lanzhou = {
+                name: '课堂点',
+                type: 'effectScatter',
+                coordinateSystem: 'geo',
+                zlevel: 3,
+                rippleEffect: {
+                    brushType: 'stroke'
+                    //波纹的绘制方式，可选 'stroke' 和 'fill'
+                },
+                showEffectOn: "render",//显示涟漪
+                label: {
+                    normal: {
+                        show: true,
+                        position: 'left',
+                        formatter: '{b}'
+                    }
+                },
+                symbolSize: function (val) {
+                    return val[2] / 200;
+                },
+                itemStyle: {
+                    normal: {
+                        color: "red"
+                    }
+                },
+                data: [
+                    {
+                        name: "天水市",
+                        value: [105.724998, 34.578529, 1804],
+                        tooltip: {
+                            formatter: function (item, ticket, callback) {
+                                var res = "课堂点：" + item.name + "<br />各地区观看数：";
+                                for (var i = 0, l = LBData.length; i < l; i++) {
+                                    res += '<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + LBData[i][1].name + ":" + LBData[i][1].value;
+                                }
+                                return res
+                            },
+                        }
+                    },
+                    {
+                        name: "定西市",
+                        value: [104.626294, 35.579578, 1800],
+                        tooltip: {
+                            formatter: function (item, ticket, callback) {
+                                var res = "课堂点：" + item.name + "<br />各地区观看数：";
+                                for (var i = 0, l = DCData.length; i < l; i++) {
+                                    res += '<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + DCData[i][1].name + ":" + DCData[i][1].value;
+                                }
+                                return res
+                            },
+                        }
+                    },
+                    {
+                        name: "兰州市",
+                        value: [103.823557, 36.058039, 1802],
+                        tooltip: {
+                            formatter: function (item, ticket, callback) {
+                                var res = "课堂点：" + item.name + "<br />各地区观看数：";
+                                for (var i = 0, l = MNData.length; i < l; i++) {
+                                    res += '<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + MNData[i][1].name + ":" + MNData[i][1].value;
+                                }
+                                return res
+                            },
+                        }
+                    },
+                    {
+                        name: "陇南市",
+                        value: [104.929379, 33.388598, 1801],
+                        tooltip: {
+                            formatter: function (item, ticket, callback) {
+                                var res = "课堂点：" + item.name + "<br />各地区观看数：";
+                                for (var i = 0, l = LSData.length; i < l; i++) {
+                                    res += '<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + LSData[i][1].name + ":" + LSData[i][1].value;
+                                }
+                                return res
+                            },
+                        }
+                    }
+                ]
+            };
+            var series = [lanzhou];//['安宁区', ANData],
+            [['天水市', LBData],
+            ['兰州市', MNData],
+            ['陇南市', LSData],
+            ['定西市', DCData],
+            ['七里河区', QLData],
+            ['安宁区', LSData],
+            ['礼县', LXData],
+            ['安宁区', GGData],
+            ['秦州区', QZData],
+            ['西和县', XHData]
+            ].forEach(function (item, i) {
+                series.push(
+                    {
+                        name: item[0],
+                        type: 'lines',
+                        zlevel: 1,
+                        effect: {
+                            show: true,
+                            period: 6,
+                            trailLength: 0.7,
+                            //color: '#fff',
+                            color: '#bdc3c7',
+                            //symbolSize: 3
+                        },
+                        lineStyle: {
+                            normal: {
+                                color: color[i],
+                                width: 0,
+                                curveness: 0.2
+                            }
+                        },
+                        data: convertData(item[1])
+                    },
+                    {
+                        name: item[0],
+                        type: 'lines',
+                        zlevel: 2,
+                        tooltip: {
+                            formatter: function (sdasd, ticket, callback) {
+                                var res = "" + sdasd.data.fromName + "->>>" + sdasd.data.toName + sdasd.data.toValue;
+                                return res
+                            },
+                        },
+                        symbol: ['none', 'arrow'],
+                        symbolSize: 3,
+                        effect: {
+                            show: true,
+                            period: 6,
+                            trailLength: 0,
+                            symbol: planePath,
+                            // symbolSize: 3
+                        },
+                        lineStyle: {
+                            normal: {
+                                color: color[i],
+                                width: 1,
+                                opacity: 0.6,
+                                curveness: 0.2
+                            }
+                        },
+                        data: convertData(item[1])
+                    },
+
+                    //地图上的点
+                    {
+                        name: item[0],
+                        type: 'effectScatter',
+                        coordinateSystem: 'geo',
+                        zlevel: 2,
+                        rippleEffect: {
+                            brushType: 'fill'
+                            //波纹的绘制方式，可选 'stroke' 和 'fill'
+                        },
+                        showEffectOn: "emphasis",//高亮时候显示涟漪
+                        // label: {
+                        //     normal: {
+                        //         show: true,
+                        //         position: 'right',
+                        //         formatter: '{b}'
+                        //     }
+                        // },
+                        symbolSize: function (val) {
+                            return val[2] / 8;
+                        },
+                        itemStyle: {
+                            normal: {
+                                color: color[i]
+                            }
+                        },
+                        tooltip: {
+                            //formatter: '{b0}观看数: <br />{c0} '
+                            formatter: function (sdasd, ticket, callback) {
+                                var numstr = sdasd.data.value[2];
+                                var res = sdasd.data.name + "观看数:" + numstr;
+                                return res
+                            }
+                        },
+                        data: item[1].map(function (dataItem) {
+                            return {
+                                name: dataItem[1].name,
+                                value: gansuMap[dataItem[1].name].concat([dataItem[1].value])
+                            };
+                        })
+                    });
+            });
+
+            option = {
+                backgroundColor: '#404a59',
+                title: {
+                    text: '课堂投送情况',
+                    subtext: '数据纯属虚构',
+                    left: 'center',
+                    textStyle: {
+                        color: '#fff'
+                    }
+                },
+                tooltip: {
+                    trigger: 'item',
+                },
+
+                legend: {
+                    orient: 'vertical',
+                    top: 'bottom',
+                    left: 'right',
+                    data: ['天水市', '兰州市', '陇南市', '定西市'],
+                    textStyle: {
+                        color: '#fff'
+                    },
+                    selectedMode: 'multiple'//'single' 或者 'multiple' 使用单选或者多选模式
+                },
+                geo: {
+                    map: '甘肃',
+                    label: {
+                        emphasis: {
+                            show: false
+                        }
+                    },
+                    roam: false,
+                    itemStyle: {
+                        normal: {
+                            areaColor: '#323c48',
+                            borderColor: '#404a59'
+                        },
+                        emphasis: {
+                            areaColor: '#2a333d'
+                        }
+                    }
+                },
+
+                visualMap: {
+                    type: 'continuous',
+                    min: 1800,
+                    max: 1804,
+                    text: ['High', 'Low'],
+                    realtime: false,
+                    calculable: true,
+                    show: false,
+                    color: ['#e74c3c', 'orangered', '#e67e22', '#27AE60']
+                },
+                series: series
+            };
+            //console.log(series);
+            if (option && typeof option === "object") {
+                var labelselect = {
+                    "天水市": true,
+                    "陇南市": true,
+                    "兰州市": true,
+                    "定西市": true
+                };
+                // option.legend.selected = labelselect;
+                myChart.setOption(option, true);
+            }
+
+            myChart.on('click', function (params) {
+                console.log(params);
+                debugger
+
+                if (params.componentSubType === 'effectScatter') {
+                    // 点击到了 effectScatter 上
+                    var labelselect = {
+                        "天水市": true,
+                        "陇南市": false,
+                        "兰州市": false,
+                        "定西市": false
+                    };
+                    switch (params.name) {
+                        case "天水市":
+                            labelselect = {
+                                "天水市": true,
+                                "陇南市": false,
+                                "兰州市": false,
+                                "定西市": false
+                            };
+                            break;
+                        case "陇南市":
+                            labelselect = {
+                                "天水市": false,
+                                "陇南市": true,
+                                "兰州市": false,
+                                "定西市": false
+                            };
+                            break;
+                        case "兰州市":
+                            labelselect = {
+                                "天水市": false,
+                                "陇南市": false,
+                                "兰州市": true,
+                                "定西市": false
+                            };
+                            break;
+                        case "定西市":
+                            labelselect = {
+                                "天水市": false,
+                                "陇南市": false,
+                                "兰州市": false,
+                                "定西市": true
+                            };
+                            break;
+                        default:
+                            labelselect = {
+                                "天水市": false,
+                                "陇南市": false,
+                                "兰州市": false,
+                                "定西市": false
+                            };
+                    }
+                    option.legend.selected = labelselect;
+                    myChart.setOption(option, true);
+                }
+
+                // 地图下钻
+                if (params.componentType === 'geo') {
+                    
+                    //点到了地图上
+                    //将上层option存入栈
+                    optionStack.push(option);
+                    var mapName = params.name;
+                    var mapUrl = "js/map/" + mapName + ".json";
+                    $.get(mapUrl, function (resJson) {
+                        window.echarts.registerMap(mapName, resJson);
+                        option = {
+                            backgroundColor: '#404a59',
+                            geo: getGeo(mapName),
+                            series: [{
+                                type: 'lines',
+                                zlevel: 1,
+                                data: []
+                            }]
+                        };
+                        ////重载数据
+                        myChart.clear();
+                        myChart.setOption(option, {
+                            notMerge: true,
+                            lazyUpdate: false
+                        });
+                    });
+                }
+            });
+
+            //返回上层 鼠标右键 
+            myChart.on('contextmenu', function (params) {
+                if (optionStack.dataStore.length > 0) {
+                    //console.log(params.name);
+                    //debugger;
+                    option=optionStack.pop();
+                    //重载数据
+                    myChart.clear();
+                    myChart.setOption(option,true);
+                }
+            });
+        });
+
+        //为了屏蔽浏览器右键菜单
+        function doNothing() {
+            window.event.returnValue = false;
+            return false;
+        }
+
+        //定义一个栈
+        function Stack() {
+            this.dataStore = [];//保存栈内元素，初始化为一个空数组
+            this.top = 0;//栈顶位置，初始化为0
+            this.push = push;//入栈
+            this.pop = pop;//出栈
+            this.peek = peek;//查看栈顶元素
+            this.clear = clear;//清空栈
+            this.length = length;//栈内存放元素的个数
+            
+        }
+        function push(element) {
+                this.dataStore[this.top++] = element;
+            }
+            function pop() {
+                item = this.dataStore[--this.top];
+                //删除元素
+                this.dataStore.pop();
+                return item;
+            }
+            function peek() {
+                return this.dataStore[this.top - 1];
+            }
+            function clear() {
+                this.top = 0;
+            }
+            function length() {
+                return this.top;
+            }
+
+    </script>
+</body>
+
+</html>
